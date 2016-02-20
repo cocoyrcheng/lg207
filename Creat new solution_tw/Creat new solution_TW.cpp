@@ -1,3 +1,5 @@
+
+///test github version
 #include <iostream>     // std::cout
 #include <algorithm>    // std::random_shuffle, find
 #include <vector>       // std::vector
@@ -118,6 +120,7 @@ void TryChargeStationInsertion(vector<int>currentSolution,
 			int ChargeStationIndex = FindAppropriateChargeStation(*itr1, *itr2, ChargeStationInfo, Distance, currentEnergy);
 			while (ChargeStationIndex == -1)    //-1 is no appropriate station is selected
 			{
+				
 
 				--itr1; --itr2;
 				int ChargeStationIndex = FindAppropriateChargeStation(*itr1, *itr2, ChargeStationInfo, Distance, currentEnergy);
