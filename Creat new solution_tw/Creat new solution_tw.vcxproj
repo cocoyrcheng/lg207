@@ -147,6 +147,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Creat new solution_TW.cpp" />
+    <ClCompile Include="ReadData.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Parameters.h" />
+    <ClInclude Include="StructureData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

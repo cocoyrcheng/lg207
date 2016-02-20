@@ -18,5 +18,16 @@
     <ClCompile Include="Creat new solution_TW.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="ReadData.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StructureData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

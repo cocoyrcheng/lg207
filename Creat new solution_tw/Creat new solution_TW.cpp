@@ -1,6 +1,7 @@
 
 ///test github version
 #include <iostream>     // std::cout
+
 #include <algorithm>    // std::random_shuffle, find
 #include <vector>       // std::vector
 #include <map>
@@ -12,39 +13,18 @@
 #include <string>
 //#include <list>
 #include <cstdlib>
-#include <chrono>       // std::chrono::system_clock
-#include <random>       // std::default_random_engine
 #include <assert.h>     /* assert */
-
+#include "StructureData.h"
+#include "Parameters.h"
 using namespace std;
 
-#define VEHICLE_NUM 3
-#define CUS_NUM 5
-#define CAPACITY 200
-#define VETX_NUM 9    //total number of vertices in the network
-#define CHARGE_NUM 3
-#define REFUEL_RATE 3.47
-#define FULL_ENERGY 77.75
-#define CHARGE_UPPER_BOUND 4
 
 
 
-struct point                 //define a struct variable called point
-{
-	double x, y;
-};
-
-struct timewindow           //define a struct variable called timewindow
-{
-	double readytime, duedate, servicetime, chargetime, demand, pindex;
-	string ID, type;
-	point P;
-
-};
 
 //add function
 
-
+void ReadData(vector<point> &InPut);
 int FindAppropriateChargeStation(int currentStation,
 	int nextStation,
 	vector<int> ChargeStationInfo,
@@ -102,9 +82,15 @@ void TryChargeStationInsertion(vector<int>currentSolution,
 	++itr2;
 
 	double TotalDis = 0.0;
-
+	//int itercount = 0;
 	while (itr2 != currentSolution.end())
 	{
+		//cout << itercount << endl;
+		//if (itercount == 4)
+		//{
+		//	cout << endl;
+		//}
+		//itercount++;
 		double dis = Distance[*itr1 - 1][*itr2 - 1];  //define a new function called GetDistance
 		if (*itr1 == 1)
 		{
@@ -117,13 +103,16 @@ void TryChargeStationInsertion(vector<int>currentSolution,
 			TotalDis += dis;
 		}
 
+		//int count2 = 0;
 		if (currentEnergy < 0)
 		{
 			int ChargeStationIndex = FindAppropriateChargeStation(*itr1, *itr2, ChargeStationInfo, Distance, currentEnergy);
 			while (ChargeStationIndex == -1)    //-1 is no appropriate station is selected
 			{
 				
-
+				//cout << count2 << endl;
+				//count2++;
+				cout << *itr1 << endl;
 				--itr1; --itr2;
 				int ChargeStationIndex = FindAppropriateChargeStation(*itr1, *itr2, ChargeStationInfo, Distance, currentEnergy);
 				/*for (int i = 0; i < NUM_CHARGE; ++i)
@@ -150,9 +139,10 @@ int main()
 	double readytime[] = { 0.0,355.0,176.0,744.0,737.0,263.0,0.0,0.0,0.0, };
 	double duedate[] = { 1236.0,407.0,228.0,798.0,809.0,325.0,1236.0,1236.0,1236.0 };
 	double servicetime[] = { 0.0,90.0,90.0,90.0,90.0,90.0,0.0,0.0,0.0 };
+	int demand[] = { 0, 10, 20, 20, 30, 10, 0, 0, 0 };
 	double traveltime[VETX_NUM][VETX_NUM];
 	double Distance[VETX_NUM][VETX_NUM];
-	
+	 
 	// import the txt network file
 	/*ifstream info("c101C5.txt");    // info.open("c101C5", ios::in)
 	struct timewindow tw[VETX_NUM];
@@ -175,6 +165,26 @@ int main()
 	else
 		cout << "Error opening" << "c101C5" << "for input" << endl;*/
 	struct timewindow tw[VETX_NUM];
+
+	vector<point> Points;
+	point tp;
+	for (size_t i = 0; i < VETX_NUM; i++)
+	{
+		Points.push_back(tp);
+	}
+
+	ReadData(Points);
+
+	for (int i = 0; i < VETX_NUM; i++)
+	{
+		tw[i].readytime = readytime[i];
+		tw[i].duedate = duedate[i];
+		tw[i].servicetime = servicetime[i];
+		tw[i].demand = demand[i];
+		tw[i].P.x = Points[i].x;
+		tw[i].P.y = Points[i].y;
+	}
+
 	for (int i = 0; i < VETX_NUM; ++i)
 	{
 		for (int j = 0; j < VETX_NUM; ++j)
@@ -211,7 +221,7 @@ int main()
 
 	map<int, int>demand_pair;
 	int point[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
-	int demand[] = { 0, 10, 20, 20, 30, 10, 0, 0, 0};
+
 	for (int i = 0; i < VETX_NUM; ++i)
 		//demand_pair.insert(pair<int, int>(point[i], tw[i].demand));
 		demand_pair.insert(pair<int, int>(point[i], demand[i]));
@@ -342,7 +352,7 @@ int main()
 	for (; mov != tmp_solution.end(); ++mov)
 	{
 		begintime[*mov] = tw[*mov].readytime;
-
+		cout << tw[*mov].readytime << endl;
 		//float lastBeginTime = tw[*mov_itr-1].readytime;
 			
 		lastBeginTime = max(tw[*mov].readytime,                   //calculate the actual service time of mov_itr
