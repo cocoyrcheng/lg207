@@ -237,8 +237,7 @@ int main()
 	for (att = tmp_solution.begin(); att !=tmp_solution.end(); ++att)
 		cout << *att<< ' ';
 	cout << '\n';
-
-
+	
 	map<int, int>demand_pair;
 	int point[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
