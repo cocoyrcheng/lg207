@@ -40,10 +40,10 @@ int FindAppropriateChargeStation(int currentStation,
 			continue;
 		}
 
-		if (ChargeStationInfo[i] == CHARGE_UPPER_BOUND)
-		{
-		continue;
-		}
+		//if (ChargeStationInfo[i] == CHARGE_UPPER_BOUND)
+		//{
+		//continue;
+		//}
 		if (Distance[currentStation - 1][CUS_NUM + 2 + i - 1] > currentEnergy)
 		{
 			continue;
@@ -197,20 +197,44 @@ int main()
 	//create initial raw solution
 	//srand(unsigned(time(0)));
 	vector<int> tmp_solution;
+	SOL tpSol;
+	
+
+
+
+
+
 	for (int i = 2; i < CUS_NUM + 1; i++)
+	{
 		tmp_solution.push_back(i);
+		tpSol.Depots.push_back(i);
+	}
+		
 	for (int i = 1; i < VEHICLE_NUM; i++)
-		tmp_solution.push_back(i);
+	{
+		tmp_solution.push_back(1);
+		tpSol.Depots.push_back(1);
+	}
+	
 	
 
 	random_shuffle(tmp_solution.begin(), tmp_solution.end());
-
-
-
+	random_shuffle(tpSol.Depots.begin(), tpSol.Depots.end());
+	
 	tmp_solution.insert(tmp_solution.begin(), 1);
 	tmp_solution.push_back(1);
 
+	tpSol.Depots.insert(tpSol.Depots.begin(), 1);
+	tpSol.Depots.push_back(1);
 
+
+	tpSol.NumRoutes = tpSol.GetNumRoutes();
+
+	for (int i = 0; i < tpSol.NumRoutes; i++)
+	{
+		// change type of vehicle 
+		tpSol.Type[i] = 1;
+	}
 
 	vector<int>::iterator att = tmp_solution.begin();
 	for (att = tmp_solution.begin(); att !=tmp_solution.end(); ++att)
