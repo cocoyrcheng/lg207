@@ -42,6 +42,8 @@ struct timewindow           //define a struct variable called timewindow
 
 };
 
+//add function
+
 
 int FindAppropriateChargeStation(int currentStation,
 	int nextStation,
