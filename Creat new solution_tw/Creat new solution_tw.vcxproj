@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="charge.cpp" />
     <ClCompile Include="Creat new solution_TW.cpp" />
     <ClCompile Include="ReadData.cpp" />
   </ItemGroup>

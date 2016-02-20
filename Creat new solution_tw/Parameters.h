@@ -10,4 +10,8 @@
 #define FULL_ENERGY 77.75
 #define CHARGE_UPPER_BOUND 4
 
+const int NumVehType = 2;
+const int MaxNumRoutes = 20;
+
+
 #endif 

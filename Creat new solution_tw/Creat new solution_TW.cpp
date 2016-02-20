@@ -19,7 +19,9 @@
 using namespace std;
 
 
-
+void TryChargeStationInsertion(vector<char>currentSolution,
+	vector<char>subResults,
+	float currentEnergy);
 
 
 //add function
@@ -200,10 +202,6 @@ int main()
 	SOL tpSol;
 	
 
-
-
-
-
 	for (int i = 2; i < CUS_NUM + 1; i++)
 	{
 		tmp_solution.push_back(i);
@@ -217,7 +215,6 @@ int main()
 	}
 	
 	
-
 	random_shuffle(tmp_solution.begin(), tmp_solution.end());
 	random_shuffle(tpSol.Depots.begin(), tpSol.Depots.end());
 	
@@ -240,7 +237,6 @@ int main()
 	for (att = tmp_solution.begin(); att !=tmp_solution.end(); ++att)
 		cout << *att<< ' ';
 	cout << '\n';
-
 
 
 	map<int, int>demand_pair;
