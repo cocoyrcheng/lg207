@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Creat new solution_TW.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="ReadData.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="charge.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>

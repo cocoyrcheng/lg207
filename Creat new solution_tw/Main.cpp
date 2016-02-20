@@ -19,122 +19,10 @@
 using namespace std;
 
 
-void TryChargeStationInsertion(vector<char>currentSolution,
-	vector<char>subResults,
-	float currentEnergy);
-
-
-//add function
+void TryChargeStationInsertion(vector<int>currentSolution,
+	float currentEnergy, double Distance[VETX_NUM][VETX_NUM]);
 
 void ReadData(vector<point> &InPut);
-int FindAppropriateChargeStation(int currentStation,
-	int nextStation,
-	vector<int> ChargeStationInfo,
-	double Distance[VETX_NUM][VETX_NUM],
-	double currentEnergy)   //just solve one pair of customers , not move
-{
-	multimap<vector<double>, int> SelectChargeStations;
-	for (size_t i = 0; i < ChargeStationInfo.size(); ++i)    //actually ChargeStationInfo.size=recharging_num
-	{
-
-		if (currentStation == i + CUS_NUM + 2)
-		{
-			continue;
-		}
-
-		//if (ChargeStationInfo[i] == CHARGE_UPPER_BOUND)
-		//{
-		//continue;
-		//}
-		if (Distance[currentStation - 1][CUS_NUM + 2 + i - 1] > currentEnergy)
-		{
-			continue;
-		}
-
-
-		vector<double> first(2, 0.0);
-		first[0] = Distance[currentStation - 1][CUS_NUM + 2 + i - 1] + Distance[CUS_NUM + 2 + i - 1][nextStation - 1];
-		first[1] = ChargeStationInfo[i];    //the times of the recharging stations are used
-
-		SelectChargeStations.insert(pair<vector<double>, int>(first, i));
-	}
-
-	if (SelectChargeStations.empty())
-	{
-		return -1;
-	}
-
-	return SelectChargeStations.begin()->second;
-}
-
-
-
-void TryChargeStationInsertion(vector<int>currentSolution,
-	vector<int> ChargeStationInfo,
-	double Distance[VETX_NUM][VETX_NUM])
-
-{
-	//list<int> currentSolution,
-		//typedef list<int>::iterator iter_type;
-
-	double currentEnergy = FULL_ENERGY;
-
-	vector<int>::iterator itr1 = currentSolution.begin();
-	vector<int>::iterator itr2 = currentSolution.begin();
-	++itr2;
-
-	double TotalDis = 0.0;
-	//int itercount = 0;
-	while (itr2 != currentSolution.end())
-	{
-		//cout << itercount << endl;
-		//if (itercount == 4)
-		//{
-		//	cout << endl;
-		//}
-		//itercount++;
-		double dis = Distance[*itr1 - 1][*itr2 - 1];  //define a new function called GetDistance
-		if (*itr1 == 1)
-		{
-			currentEnergy = FULL_ENERGY; //from depot, always full energy
-			TotalDis = 0.0;
-		}
-		else
-		{
-			currentEnergy -= dis;
-			TotalDis += dis;
-		}
-
-		//int count2 = 0;
-		if (currentEnergy < 0)
-		{
-			int ChargeStationIndex = FindAppropriateChargeStation(*itr1, *itr2, ChargeStationInfo, Distance, currentEnergy);
-			while (ChargeStationIndex == -1)    //-1 is no appropriate station is selected
-			{
-				
-				//cout << count2 << endl;
-				//count2++;
-				cout << *itr1 << endl;
-				--itr1; --itr2;
-				int ChargeStationIndex = FindAppropriateChargeStation(*itr1, *itr2, ChargeStationInfo, Distance, currentEnergy);
-				/*for (int i = 0; i < NUM_CHARGE; ++i)
-				{
-				if (*itr1 = i + 21)
-				break;
-				}*/    //how to step out of the while cycle if *itr1 is one of the recharging station; big M to make the solution valid
-			}
-
-			currentSolution.insert(itr2, CUS_NUM + 2 + ChargeStationIndex);    //ORIGINAL itr2 is the position the charge station will be inserted
-			++itr1;
-			currentEnergy = FULL_ENERGY;
-			TotalDis = 0.0;
-		}
-		else
-		{
-			++itr1; ++itr2;
-		}
-	}
-}
 
 int main()
 {
@@ -322,7 +210,8 @@ int main()
 
 	//insert recharging stations
 	vector<int>ChargeStationInfo(CHARGE_NUM, 0);
-	TryChargeStationInsertion(tmp_solution,ChargeStationInfo,Distance);
+	float currentEnergy = FULL_ENERGY;
+	TryChargeStationInsertion(tmp_solution,currentEnergy, Distance);
 	
 
 

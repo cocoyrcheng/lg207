@@ -50,8 +50,7 @@ int FindAppropriateChargeStation (char currentStation,
 }
 
 
-void TryChargeStationInsertion(vector<char>currentSolution,
-	    vector<char>subResults,
+void TryChargeStationInsertion(vector<int>currentSolution,
 	    float currentEnergy, double Distance[VETX_NUM][VETX_NUM])
 {
 		
@@ -59,8 +58,8 @@ void TryChargeStationInsertion(vector<char>currentSolution,
 
 		currentEnergy = FULL_ENERGY;
 	
-		vector<char>::iterator itr1 = currentSolution.begin();
-		vector<char>::iterator itr2 = currentSolution.begin();
+		vector<int>::iterator itr1 = currentSolution.begin();
+		vector<int>::iterator itr2 = currentSolution.begin();
 	    ++itr2;
 
 	float TotalDis = 0.0;
